@@ -30,6 +30,8 @@ string winIn = "video";
 string winOut = "output";
 string winSetup = "setup";
 
+bool isEdgeDetect = true;
+
 static void help()
 {
 	printf(
@@ -86,7 +88,7 @@ static void init(int argc, char** argv, VideoCapture& cap) {
 
 	if (argc < 2)
 	{
-		cap.open(1);
+		cap.open(0);
 	}
 	else
 	{
@@ -227,8 +229,11 @@ int main(int argc, char** argv)
 		cap >> tmp_frame;
 		if (!tmp_frame.data)
 			break;
+		fineImage(tmp_frame, out_frame);
 		detectColor(tmp_frame, out_frame);
-		findMassCenter(out_frame, out_frame);
+		if (isEdgeDetect) {
+			findMassCenter(out_frame, out_frame);
+		}
 		imshow(winIn, tmp_frame);
 		imshow(winOut, out_frame);
 		char keycode = waitKey(30);
@@ -237,6 +242,9 @@ int main(int argc, char** argv)
 		}
 		if (keycode == 27)
 			break;
+		if (keycode == 'e') {
+			isEdgeDetect = !isEdgeDetect;
+		}
 
 	}
 
