@@ -11,20 +11,26 @@
 #include "opencv2/core/core.hpp"
 #include "segment.hpp"
 #include <vector>
+#include <string>
+
+typedef std::map<std::string, char> DecoderMap;
+typedef std::pair<std::string, char> PairDecoderMap;
+typedef DecoderMap::iterator DecoderMapIterator;
 
 class Digit {
 public:
 	Digit(cv::Rect r);
 
-	int read(const cv::Mat grayImage);
+	std::string read(const cv::Mat grayImage);
 	void draw(cv::Mat &image);
-	short getValue();
-
+	std::string getValue();
+	char decode();
 private:
 	std::vector<Segment> segments;
 	cv::Rect rect;
-	int value;
+	std::string value;
 	bool isDigitized;
+	DecoderMap decoderMap;
 };
 
 

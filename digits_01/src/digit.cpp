@@ -7,9 +7,10 @@
 
 #include "digit.hpp"
 
+
 Digit::Digit(cv::Rect r) {
 	rect = r;
-	value = 0;
+	value = "00000000";
 	isDigitized = false;
 
 	int h = r.height / 7;
@@ -32,17 +33,30 @@ Digit::Digit(cv::Rect r) {
 	//bottom right
 	segments.push_back(Segment(cv::Rect(r.x+2*w, r.y+4*h, w, h2 )) );
 
+	//segments: top|middle|botton|lefttop|leftbottom|righttop|rightbottom
+	decoderMap.insert(PairDecoderMap("1011111",'0'));
+	decoderMap.insert(PairDecoderMap("0000011",'1'));
+	decoderMap.insert(PairDecoderMap("1110110",'2'));
+	decoderMap.insert(PairDecoderMap("1110011",'3'));
+	decoderMap.insert(PairDecoderMap("0101001",'4'));
+	decoderMap.insert(PairDecoderMap("1111001",'5'));
+	decoderMap.insert(PairDecoderMap("1111101",'6'));
+	decoderMap.insert(PairDecoderMap("1000011",'7'));
+	decoderMap.insert(PairDecoderMap("1111111",'8'));
+	decoderMap.insert(PairDecoderMap("1111011",'9'));
+	decoderMap.insert(PairDecoderMap("0100000",'-'));
+
 }
 
-int Digit::read(cv::Mat grayImage) {
+std::string Digit::read(cv::Mat grayImage) {
 
-	int sum = 0; int multiplier = 1;
+	char bits[7];
 	for (int i = 0; i < 7; i++) {
-		sum += segments[i].read(grayImage) * multiplier;
-		multiplier *= 2;
+		bits[i] = (segments[i].read(grayImage) == 0) ? '0' : '1';
 	}
 
-	value = sum;
+	std::string s(bits);
+	value = s;
 	isDigitized = true;
 
 	return value;
@@ -57,6 +71,16 @@ void Digit::draw(cv::Mat &image) {
 	cv::rectangle(image, rect, cv::Scalar(0, 0, 255));
 }
 
-short Digit::getValue() {
+std::string Digit::getValue() {
 	return value;
+}
+
+char Digit::decode() {
+	DecoderMapIterator it = decoderMap.find(value);
+	if (it == decoderMap.end()) {
+		return ' ';
+	}
+	else {
+		return it->second;
+	}
 }

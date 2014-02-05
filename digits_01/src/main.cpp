@@ -16,28 +16,47 @@
 #include <ctime>
 #include <stdio.h>
 
-int main(int argc, const char** argv) {
-	cv::Mat blackImg = cv::Mat::zeros( 100, 100, CV_8UC3 );
-	cv::Mat whiteImg = cv::Mat( 100, 100, CV_8UC3, cv::Scalar(255,255,255) );
-	cv::Mat img1, img2;
-	cv::cvtColor(blackImg, img1, CV_BGR2GRAY);
-	cv::cvtColor(whiteImg, img2, CV_BGR2GRAY);
+cv::Mat readImage(int argc, const char** argv) {
+    cv::Mat image;
+	if( argc != 2)
+    {
+		image = cv::Mat::zeros( 640, 480, CV_8UC3 ); // black image
+    }
+	else {
+		image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
 
-	Segment s(cv::Rect(10,10, 10, 2));
-	std::cout << s.read(img1) << std::endl;
-	std::cout << s.read(img2) << std::endl;
+		if(! image.data )                              // Check for invalid input
+		{
+			std::cout <<  "Could not open or find the image" << std::endl ;
+			image = cv::Mat( 640, 480, CV_8UC3, cv::Scalar(255,255,255) );
+		}
+    }
 
-	Digit d(cv::Rect(5, 5, 80, 80));
-	std::cout << d.read(img2) << std::endl;
-	std::cout << d.read(img1) << std::endl;
-	//d.draw(blackImg);
-
-
-	imshow("img", blackImg);
-
-	while( cv::waitKey(20) == -1 ) {
-	}
-
+	return image;
 }
 
+int main(int argc, const char** argv) {
+	cv::Mat image = readImage(argc, argv);
+	cv::Mat channels[3];
+	cv::split(image, channels);
+	cv::Mat blue = channels[0];
 
+	Segment s(cv::Rect(10,10, 10, 2));
+	std::cout << s.read(blue) << std::endl;
+
+	Digit d(cv::Rect(153, 182, 112, 211));
+	std::cout << d.read(blue) << d.decode() <<   std::endl;
+	d.draw(image);
+
+	Digit d2(cv::Rect(272, 182, 103, 208));
+	std::cout << d2.read(blue) << d.decode() << std::endl;
+	d2.draw(image);
+
+	Digit d3(cv::Rect(419, 179, 105, 210));
+	std::cout << d3.read(blue) << d.decode() <<std::endl;
+	d3.draw(image);
+
+	imshow("img", image);
+
+	cv::waitKey(0);
+}

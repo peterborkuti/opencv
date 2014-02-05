@@ -22,9 +22,9 @@ Segment::Segment(cv::Rect r) {
 short Segment::read(const cv::Mat grayImg) {
 	cv::Mat roi(grayImg, rect);
 
-	cv::MatND hist = Util::twoBinGrayHistogram(grayImg);
+	cv::MatND hist = Util::twoBinGrayHistogram(roi);
 
-	digit = (hist.at<float>(0, 0) > hist.at<float>(0, 1)) ? 1 : 0;
+	digit = (hist.at<float>(0, 0) > 2 * hist.at<float>(0, 1)) ? 1 : 0;
 	return digit;
 }
 
