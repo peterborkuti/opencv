@@ -8,27 +8,33 @@
 #ifndef DIGIT_HPP_
 #define DIGIT_HPP_
 
+#define DIGIT_HPP_DEBUG
+
 #include "opencv2/core/core.hpp"
 #include "segment.hpp"
 #include <vector>
 #include <string>
 
-typedef std::map<std::string, char> DecoderMap;
-typedef std::pair<std::string, char> PairDecoderMap;
+typedef unsigned int ValueType;
+typedef std::map<ValueType, char> DecoderMap;
+typedef std::pair<ValueType, char> PairDecoderMap;
 typedef DecoderMap::iterator DecoderMapIterator;
+
 
 class Digit {
 public:
 	Digit(cv::Rect r);
 
-	std::string read(const cv::Mat grayImage);
+	ValueType read(const cv::Mat grayImage);
 	void draw(cv::Mat &image);
-	std::string getValue();
+	ValueType getValue();
 	char decode();
+	char decode2();
+	void printMap();
 private:
 	std::vector<Segment> segments;
 	cv::Rect rect;
-	std::string value;
+	ValueType value;
 	bool isDigitized;
 	DecoderMap decoderMap;
 };

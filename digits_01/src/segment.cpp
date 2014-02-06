@@ -33,7 +33,7 @@ void Segment::print(cv::Mat image) {
 }
 
 void Segment::draw(cv::Mat image) {
-	cv::rectangle(image, rect, cv::Scalar(255, 0, 0));
+	cv::rectangle(image, rect, cv::Scalar(0, 255, 0));
 }
 
 short Segment::getDigit() {

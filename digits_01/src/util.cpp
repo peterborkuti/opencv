@@ -27,8 +27,10 @@ cv::MatND Util::twoBinGrayHistogram(const cv::Mat grayImage) {
              true, // the histogram is uniform
              false ); // not preserve previous histogram
 
+#ifdef UTIL_HPP_DEBUG
     std::cout << "histogram:" << hist.at<float>(0, 0) <<
     		"," << hist.at<float>(0, 1) << std::endl;
+#endif
 
     return hist;
 }

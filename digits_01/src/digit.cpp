@@ -6,11 +6,12 @@
  */
 
 #include "digit.hpp"
+#include <iostream>
 
 
 Digit::Digit(cv::Rect r) {
 	rect = r;
-	value = "00000000";
+	value = 0u;
 	isDigitized = false;
 
 	int h = r.height / 7;
@@ -34,30 +35,30 @@ Digit::Digit(cv::Rect r) {
 	segments.push_back(Segment(cv::Rect(r.x+2*w, r.y+4*h, w, h2 )) );
 
 	//segments: top|middle|botton|lefttop|leftbottom|righttop|rightbottom
-	decoderMap.insert(PairDecoderMap("1011111",'0'));
-	decoderMap.insert(PairDecoderMap("0000011",'1'));
-	decoderMap.insert(PairDecoderMap("1110110",'2'));
-	decoderMap.insert(PairDecoderMap("1110011",'3'));
-	decoderMap.insert(PairDecoderMap("0101001",'4'));
-	decoderMap.insert(PairDecoderMap("1111001",'5'));
-	decoderMap.insert(PairDecoderMap("1111101",'6'));
-	decoderMap.insert(PairDecoderMap("1000011",'7'));
-	decoderMap.insert(PairDecoderMap("1111111",'8'));
-	decoderMap.insert(PairDecoderMap("1111011",'9'));
-	decoderMap.insert(PairDecoderMap("0100000",'-'));
+	decoderMap[0b01011111u] = '0';
+	decoderMap[0b00000011u] = '1';
+	decoderMap[0b01110110u] = '2';
+	decoderMap[0b01110011u] = '3';
+	decoderMap[0b00101011u] = '4';
+	decoderMap[0b01111001u] = '5';
+	decoderMap[0b01111101u] = '6';
+	decoderMap[0b01000011u] = '7';
+	decoderMap[0b01111111u] = '8';
+	decoderMap[0b01111011u] = '9';
+	decoderMap[0b00100000u] = '-';
 
 }
 
-std::string Digit::read(cv::Mat grayImage) {
-
-	char bits[7];
-	for (int i = 0; i < 7; i++) {
-		bits[i] = (segments[i].read(grayImage) == 0) ? '0' : '1';
-	}
-
-	std::string s(bits);
-	value = s;
+ValueType Digit::read(cv::Mat grayImage) {
 	isDigitized = true;
+
+	value = 0;
+
+	for (int i = 0; i < 7; i++) {
+		if (segments[i].read(grayImage) == 1) {
+			value |= 1 << (6-i); //sets the i. bit to 1
+		}
+	}
 
 	return value;
 }
@@ -71,16 +72,35 @@ void Digit::draw(cv::Mat &image) {
 	cv::rectangle(image, rect, cv::Scalar(0, 0, 255));
 }
 
-std::string Digit::getValue() {
+ValueType Digit::getValue() {
 	return value;
 }
 
+void Digit::printMap() {
+	for (DecoderMapIterator it = decoderMap.begin(); it != decoderMap.end(); ++it) {
+		std::cout << std::hex << it->first << "," << it->second << std::endl;
+	}
+
+}
+
 char Digit::decode() {
-	DecoderMapIterator it = decoderMap.find(value);
-	if (it == decoderMap.end()) {
-		return ' ';
+	char c = 'X';
+
+	if (decoderMap.count(value) == 1) {
+		c = decoderMap.at(value);
 	}
-	else {
-		return it->second;
+
+	return c;
+}
+
+char Digit::decode2() {
+	char c = 'X';
+	for (DecoderMapIterator it = decoderMap.begin(); it != decoderMap.end(); ++it) {
+		if (it->first == value) {
+			c = it->second;
+			break;
+		}
 	}
+
+	return c;
 }

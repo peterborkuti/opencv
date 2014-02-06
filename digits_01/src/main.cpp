@@ -42,19 +42,19 @@ int main(int argc, const char** argv) {
 	cv::Mat blue = channels[0];
 
 	Segment s(cv::Rect(10,10, 10, 2));
-	std::cout << s.read(blue) << std::endl;
 
-	Digit d(cv::Rect(153, 182, 112, 211));
-	std::cout << d.read(blue) << d.decode() <<   std::endl;
-	d.draw(image);
+	Digit* d[3];
 
-	Digit d2(cv::Rect(272, 182, 103, 208));
-	std::cout << d2.read(blue) << d.decode() << std::endl;
-	d2.draw(image);
+	d[0] = new Digit(cv::Rect(153, 182, 112, 211));
+	d[1] = new Digit(cv::Rect(272, 182, 103, 208));
+	d[2] = new Digit(cv::Rect(419, 179, 105, 210));
 
-	Digit d3(cv::Rect(419, 179, 105, 210));
-	std::cout << d3.read(blue) << d.decode() <<std::endl;
-	d3.draw(image);
+	for (int i = 0; i < 3; i++) {
+		d[i]->read(blue);
+		d[i]->draw(image);
+	}
+
+	std::cout << d[0]->decode2() << d[1]->decode2() << "." << d[2]->decode2() << std::endl;
 
 	imshow("img", image);
 
