@@ -52,7 +52,7 @@ Digit::Digit(cv::Rect r) {
 ValueType Digit::read(cv::Mat grayImage) {
 	isDigitized = true;
 
-	value = 0;
+	value = 0u;
 
 	for (int i = 0; i < 7; i++) {
 		if (segments[i].read(grayImage) == 1) {
@@ -88,18 +88,6 @@ char Digit::decode() {
 
 	if (decoderMap.count(value) == 1) {
 		c = decoderMap.at(value);
-	}
-
-	return c;
-}
-
-char Digit::decode2() {
-	char c = 'X';
-	for (DecoderMapIterator it = decoderMap.begin(); it != decoderMap.end(); ++it) {
-		if (it->first == value) {
-			c = it->second;
-			break;
-		}
 	}
 
 	return c;

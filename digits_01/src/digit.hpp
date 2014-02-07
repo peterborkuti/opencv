@@ -12,7 +12,7 @@
 
 #include "opencv2/core/core.hpp"
 #include "segment.hpp"
-#include <vector>
+#include <map>
 #include <string>
 
 typedef unsigned int ValueType;
@@ -29,7 +29,6 @@ public:
 	void draw(cv::Mat &image);
 	ValueType getValue();
 	char decode();
-	char decode2();
 	void printMap();
 private:
 	std::vector<Segment> segments;
