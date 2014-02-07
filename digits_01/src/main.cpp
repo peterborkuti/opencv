@@ -41,7 +41,17 @@ int main(int argc, const char** argv) {
 	cv::split(image, channels);
 	cv::Mat blue = channels[0];
 
-	Segment s(cv::Rect(10,10, 10, 2));
+	Segment hold(cv::Rect(170,108, 111, 51));
+	Segment scan(cv::Rect(63,112, 107, 48));
+	hold.read(blue);
+	hold.draw(image);
+	scan.read(blue);
+	scan.draw(image);
+
+	std::cout << "scan:" << ((scan.getDigit())?"YES":"NO");
+	std::cout << ", hold:" << ((hold.getDigit())?"YES":"NO");
+	std::cout << std::endl;
+
 
 	Digit* d[3];
 
@@ -54,7 +64,7 @@ int main(int argc, const char** argv) {
 		d[i]->draw(image);
 	}
 
-	std::cout << d[0]->decode2() << d[1]->decode2() << "." << d[2]->decode2() << std::endl;
+	std::cout << d[0]->decode() << d[1]->decode() << "." << d[2]->decode() << std::endl;
 
 	imshow("img", image);
 
