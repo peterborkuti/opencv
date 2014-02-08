@@ -17,13 +17,12 @@ public:
 	short read(const cv::Mat grayImage);
 	void print(cv::Mat image);
 	void draw(cv::Mat img);
-	short getDigit();
+	short getValue();
 
 private:
 	cv::Rect rect;
-	short digit;
+	short value;
 	bool isDigitized;
 };
-
 
 #endif /* SEGMENT_HPP_ */
