@@ -12,6 +12,8 @@
 Digit::Digit(cv::Rect r) {
 	rect = r;
 	value = 0u;
+	charValue = 'X';
+	numberValue = 0u;
 	isDigitized = false;
 
 	int h = r.height / 7;
@@ -76,19 +78,26 @@ ValueType Digit::getValue() {
 	return value;
 }
 
-void Digit::printMap() {
-	for (DecoderMapIterator it = decoderMap.begin(); it != decoderMap.end(); ++it) {
-		std::cout << std::hex << it->first << "," << it->second << std::endl;
-	}
-
-}
-
 char Digit::decode() {
-	char c = 'X';
+	charValue = 'X';
+	numberValue = 0u;
 
 	if (decoderMap.count(value) == 1) {
-		c = decoderMap.at(value);
+		charValue = decoderMap.at(value);
 	}
 
-	return c;
+	int n = charValue - '0';
+	if (n >=0 && n <= 9) {
+		numberValue = (unsigned char)n;
+	}
+
+	return charValue;
+}
+
+unsigned char Digit::getDecodedNumber() {
+	return numberValue;
+}
+
+char Digit::getDecodedCharacter() {
+	return charValue;
 }

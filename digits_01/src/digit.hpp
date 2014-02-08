@@ -29,11 +29,14 @@ public:
 	void draw(cv::Mat &image);
 	ValueType getValue();
 	char decode();
-	void printMap();
+	char getDecodedCharacter();
+	unsigned char getDecodedNumber();
 private:
 	std::vector<Segment> segments;
 	cv::Rect rect;
 	ValueType value;
+	char charValue;
+	unsigned char numberValue;
 	bool isDigitized;
 	DecoderMap decoderMap;
 };
