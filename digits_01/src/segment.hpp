@@ -13,16 +13,20 @@
 class Segment {
 public:
 	Segment(cv::Rect r);
+	Segment(cv::Rect r, std::string stringValueOn, std::string stringValueOff);
 
-	short read(const cv::Mat grayImage);
+	std::string read(const cv::Mat grayImage);
 	void print(cv::Mat image);
 	void draw(cv::Mat img);
 	short getValue();
+	std::string getStringValue();
 
 private:
 	cv::Rect rect;
 	short value;
 	bool isDigitized;
+	std::string strValue;
+	std::string strValues[2];
 };
 
 #endif /* SEGMENT_HPP_ */

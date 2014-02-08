@@ -15,15 +15,29 @@ Segment::Segment(cv::Rect r) {
 	value = 0;
 	isDigitized = false;
 	rect = r;
+	strValue = "";
+	strValues[0] = "OFF";
+	strValues[1] = "ON";
 }
 
-short Segment::read(const cv::Mat grayImg) {
+Segment::Segment(cv::Rect r, std::string stringValueOn, std::string stringValueOff) {
+	value = 0;
+	isDigitized = false;
+	rect = r;
+	strValue = "";
+	strValues[0] = stringValueOff;
+	strValues[1] = stringValueOn;
+}
+
+std::string Segment::read(const cv::Mat grayImg) {
 	cv::Mat roi(grayImg, rect);
 
 	cv::MatND hist = Util::twoBinGrayHistogram(roi);
 
 	value = (hist.at<float>(0, 0) > 2 * hist.at<float>(0, 1)) ? 1 : 0;
-	return value;
+	strValue = strValues[value];
+
+	return strValue;
 }
 
 void Segment::print(cv::Mat image) {
@@ -38,3 +52,6 @@ short Segment::getValue() {
 	return value;
 }
 
+std::string Segment::getStringValue() {
+	return strValue;
+}

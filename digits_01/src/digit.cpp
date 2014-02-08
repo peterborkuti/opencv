@@ -48,6 +48,7 @@ Digit::Digit(cv::Rect r) {
 	decoderMap[0b01111111u] = '8';
 	decoderMap[0b01111011u] = '9';
 	decoderMap[0b00100000u] = '-';
+	decoderMap[0b00000000u] = ' ';
 
 }
 
@@ -57,7 +58,8 @@ ValueType Digit::read(cv::Mat grayImage) {
 	value = 0u;
 
 	for (int i = 0; i < 7; i++) {
-		if (segments[i].read(grayImage) == 1) {
+		segments[i].read(grayImage);
+		if (segments[i].getValue() == 1) {
 			value |= 1 << (6-i); //sets the i. bit to 1
 		}
 	}

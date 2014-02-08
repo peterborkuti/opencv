@@ -43,31 +43,30 @@ int main(int argc, const char** argv) {
 	cv::split(image, channels);
 	cv::Mat blue = channels[0];
 
-	Segment scan(cv::Rect(63,112, 107, 48));
-	Segment hold(cv::Rect(170,108, 111, 51));
-	scan.read(blue);
+	Segment scan(cv::Rect(63,112, 107, 48), "SCAN", "    ");
+	Segment hold(cv::Rect(170,108, 111, 51), "HOLD", "    ");
+
 	scan.draw(image);
 
 	hold.read(blue);
 	hold.draw(image);
 
-	std::cout << "scan:" << ((scan.getValue())?"YES":"NO");
-	std::cout << ", hold:" << ((hold.getValue())?"YES":"NO");
-	std::cout << std::endl;
+	std::cout << scan.read(blue) << hold.read(blue);
 
+	Digit* d[4];
 
-	Digit* d[3];
+	d[0] = new Digit(cv::Rect(40, 182, 112, 211));
+	d[1] = new Digit(cv::Rect(153, 182, 112, 211));
+	d[2] = new Digit(cv::Rect(272, 182, 103, 208));
+	d[3] = new Digit(cv::Rect(419, 179, 105, 210));
 
-	d[0] = new Digit(cv::Rect(153, 182, 112, 211));
-	d[1] = new Digit(cv::Rect(272, 182, 103, 208));
-	d[2] = new Digit(cv::Rect(419, 179, 105, 210));
-
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
 		d[i]->read(blue);
 		d[i]->draw(image);
 	}
 
-	std::cout << d[0]->decode() << d[1]->decode() << "." << d[2]->decode() << std::endl;
+	std::cout << d[0]->decode() << d[1]->decode() << d[2]->decode();
+	std::cout << "." << d[3]->decode() << std::endl;
 
 	imshow("img", image);
 
