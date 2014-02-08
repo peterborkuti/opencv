@@ -18,6 +18,7 @@ Segment::Segment(cv::Rect r) {
 	strValue = "";
 	strValues[0] = "OFF";
 	strValues[1] = "ON";
+	areaMinimum = r.area() * areaThreshold;
 }
 
 Segment::Segment(cv::Rect r, std::string stringValueOn, std::string stringValueOff) {
@@ -27,6 +28,7 @@ Segment::Segment(cv::Rect r, std::string stringValueOn, std::string stringValueO
 	strValue = "";
 	strValues[0] = stringValueOff;
 	strValues[1] = stringValueOn;
+	areaMinimum = r.area() * areaThreshold;
 }
 
 std::string Segment::read(const cv::Mat grayImg) {
@@ -34,7 +36,7 @@ std::string Segment::read(const cv::Mat grayImg) {
 
 	cv::MatND hist = Util::twoBinGrayHistogram(roi);
 
-	value = (hist.at<float>(0, 0) > 2 * hist.at<float>(0, 1)) ? 1 : 0;
+	value = (hist.at<float>(0, 0) > areaMinimum) ? 1 : 0;
 	strValue = strValues[value];
 
 	return strValue;
@@ -54,4 +56,8 @@ short Segment::getValue() {
 
 std::string Segment::getStringValue() {
 	return strValue;
+}
+
+void Segment::setThreshold(float threshold) {
+	areaMinimum = rect.area() * threshold;
 }

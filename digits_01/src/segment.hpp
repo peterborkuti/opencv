@@ -20,9 +20,12 @@ public:
 	void draw(cv::Mat img);
 	short getValue();
 	std::string getStringValue();
+	void setThreshold(float threshold);
 
 private:
 	cv::Rect rect;
+	int areaMinimum;
+	static const float areaThreshold = 0.3;
 	short value;
 	bool isDigitized;
 	std::string strValue;

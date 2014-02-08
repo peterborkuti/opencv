@@ -18,57 +18,85 @@
 #include <ctime>
 #include <stdio.h>
 
-cv::Mat readImage(int argc, const char** argv) {
-    cv::Mat image;
-	if( argc != 2)
-    {
+const int NUM_OF_DIGITS = 4;
+
+cv::Mat readImage(int argc, const char** argv, int i) {
+	cv::Mat image;
+	if( argc < 2 || i >= argc )
+	{
 		image = cv::Mat::zeros( 640, 480, CV_8UC3 ); // black image
-    }
+	}
 	else {
-		image = cv::imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
+		image = cv::imread(argv[i], CV_LOAD_IMAGE_COLOR);   // Read the file
 
 		if(! image.data )                              // Check for invalid input
 		{
 			std::cout <<  "Could not open or find the image" << std::endl ;
 			image = cv::Mat( 640, 480, CV_8UC3, cv::Scalar(255,255,255) );
 		}
-    }
+	}
 
 	return image;
 }
 
-int main(int argc, const char** argv) {
-	cv::Mat image = readImage(argc, argv);
+void readData(const cv::Mat image, Digit * d[], Segment& scan, Segment&  hold) {
 	cv::Mat channels[3];
 	cv::split(image, channels);
 	cv::Mat blue = channels[0];
+	cv::Mat binary;
+	//cv::threshold( blue, binary, threshold_value, max_BINARY_value,threshold_type );
+	cv::threshold( blue, binary, 145, 255, cv::THRESH_BINARY);
+
+	for (int i = 0; i < NUM_OF_DIGITS; i++) {
+		d[i]->read(binary);
+	}
+
+	scan.read(binary);
+	hold.read(binary);
+	imshow("binary", binary);
+
+}
+
+void printData(Digit * d[], Segment scan, Segment hold) {
+	std::cout << scan.getStringValue() << hold.getStringValue();
+	std::cout << d[0]->decode() << d[1]->decode() << d[2]->decode();
+	std::cout << "." << d[3]->decode() << std::endl;
+}
+
+void showImage(cv::Mat image, Digit * d[], Segment scan, Segment hold) {
+	hold.draw(image);
+	scan.draw(image);
+
+	for (int i = 0; i < NUM_OF_DIGITS; i++) {
+		d[i]->draw(image);
+	}
+
+	imshow("img", image);
+}
+
+
+int main(int argc, const char** argv) {
 
 	Segment scan(cv::Rect(63,112, 107, 48), "SCAN", "    ");
 	Segment hold(cv::Rect(170,108, 111, 51), "HOLD", "    ");
+	scan.setThreshold(0.01);
+	hold.setThreshold(0.01);
 
-	scan.draw(image);
-
-	hold.read(blue);
-	hold.draw(image);
-
-	std::cout << scan.read(blue) << hold.read(blue);
-
-	Digit* d[4];
+	Digit* d[NUM_OF_DIGITS];
 
 	d[0] = new Digit(cv::Rect(40, 182, 112, 211));
 	d[1] = new Digit(cv::Rect(153, 182, 112, 211));
 	d[2] = new Digit(cv::Rect(272, 182, 103, 208));
 	d[3] = new Digit(cv::Rect(419, 179, 105, 210));
 
-	for (int i = 0; i < 4; i++) {
-		d[i]->read(blue);
-		d[i]->draw(image);
+	for (int im = 1; im < argc; im++) {
+		cv::Mat image = readImage(argc, argv, im);
+
+		readData(image, d, scan, hold);
+		printData(d, scan, hold);
+		showImage(image, d, scan, hold);
+
+		cv::waitKey(0);
 	}
 
-	std::cout << d[0]->decode() << d[1]->decode() << d[2]->decode();
-	std::cout << "." << d[3]->decode() << std::endl;
-
-	imshow("img", image);
-
-	cv::waitKey(0);
 }

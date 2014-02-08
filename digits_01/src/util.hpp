@@ -10,6 +10,8 @@
 
 #include "opencv2/core/core.hpp"
 
+//#define UTIL_HPP_DEBUG
+
 class Util {
 public:
 	static cv::MatND twoBinGrayHistogram(const cv::Mat grayImage);

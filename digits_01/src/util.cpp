@@ -12,7 +12,7 @@
 
 cv::MatND Util::twoBinGrayHistogram(const cv::Mat grayImage) {
 	//two bins
-    int histSize[] = {2};
+    int histSize[] = {2 };
     // gray varies from 0 to 255
     float range[] = { 0, 255 };
 
@@ -28,8 +28,7 @@ cv::MatND Util::twoBinGrayHistogram(const cv::Mat grayImage) {
              false ); // not preserve previous histogram
 
 #ifdef UTIL_HPP_DEBUG
-    std::cout << "histogram:" << hist.at<float>(0, 0) <<
-    		"," << hist.at<float>(0, 1) << std::endl;
+    std::cout << hist << std::endl;
 #endif
 
     return hist;
