@@ -5,6 +5,8 @@
  *      Author: peter
  */
 
+#define UTIL_HPP_DEBUG true
+
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -41,15 +43,16 @@ int main(int argc, const char** argv) {
 	cv::split(image, channels);
 	cv::Mat blue = channels[0];
 
-	Segment hold(cv::Rect(170,108, 111, 51));
 	Segment scan(cv::Rect(63,112, 107, 48));
-	hold.read(blue);
-	hold.draw(image);
+	Segment hold(cv::Rect(170,108, 111, 51));
 	scan.read(blue);
 	scan.draw(image);
 
-	std::cout << "scan:" << ((scan.getDigit())?"YES":"NO");
-	std::cout << ", hold:" << ((hold.getDigit())?"YES":"NO");
+	hold.read(blue);
+	hold.draw(image);
+
+	std::cout << "scan:" << ((scan.getValue())?"YES":"NO");
+	std::cout << ", hold:" << ((hold.getValue())?"YES":"NO");
 	std::cout << std::endl;
 
 
