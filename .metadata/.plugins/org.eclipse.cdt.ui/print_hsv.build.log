@@ -1,0 +1,18 @@
+12:59:14 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:75:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+
+12:59:15 Build Finished (took 1s.809ms)
+

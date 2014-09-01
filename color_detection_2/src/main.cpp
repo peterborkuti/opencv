@@ -229,7 +229,7 @@ int main(int argc, char** argv)
 		cap >> tmp_frame;
 		if (!tmp_frame.data)
 			break;
-		fineImage(tmp_frame, out_frame);
+		//fineImage(tmp_frame, out_frame);
 		detectColor(tmp_frame, out_frame);
 		if (isEdgeDetect) {
 			findMassCenter(out_frame, out_frame);

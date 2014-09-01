@@ -1,0 +1,303 @@
+10:58:54 **** Clean-only build of configuration Debug for project panorama_01 ****
+make clean 
+rm -rf  ./src/SURF_FlannMatcher.o ./src/stitching.o  ./src/SURF_FlannMatcher.d ./src/stitching.d  panorama_01
+ 
+10:58:55 **** Build of configuration Debug for project panorama_01 ****
+make all 
+Building file: ../src/SURF_FlannMatcher.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/SURF_FlannMatcher.d" -MT"src/SURF_FlannMatcher.d" -o "src/SURF_FlannMatcher.o" "../src/SURF_FlannMatcher.cpp"
+Finished building: ../src/SURF_FlannMatcher.cpp
+ 
+Building file: ../src/stitching.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/stitching.d" -MT"src/stitching.d" -o "src/stitching.o" "../src/stitching.cpp"
+Finished building: ../src/stitching.cpp
+ 
+Building target: panorama_01
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "panorama_01"  ./src/SURF_FlannMatcher.o ./src/stitching.o   -lopencv_core -lopencv_nonfree -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_features2d -lopencv_video -lopencv_stitching -lopencv_flann
+Finished building target: panorama_01
+ 
+10:59:30 **** Clean-only build of configuration Debug for project panorama_01 ****
+make clean 
+rm -rf  ./src/SURF_FlannMatcher.o ./src/stitching.o  ./src/SURF_FlannMatcher.d ./src/stitching.d  panorama_01
+ 
+10:59:30 **** Build of configuration Debug for project panorama_01 ****
+make all 
+Building file: ../src/SURF_FlannMatcher.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/SURF_FlannMatcher.d" -MT"src/SURF_FlannMatcher.d" -o "src/SURF_FlannMatcher.o" "../src/SURF_FlannMatcher.cpp"
+Finished building: ../src/SURF_FlannMatcher.cpp
+ 
+Building file: ../src/stitching.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/stitching.d" -MT"src/stitching.d" -o "src/stitching.o" "../src/stitching.cpp"
+Finished building: ../src/stitching.cpp
+ 
+Building target: panorama_01
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "panorama_01"  ./src/SURF_FlannMatcher.o ./src/stitching.o   -lopencv_core -lopencv_nonfree -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_features2d -lopencv_video -lopencv_stitching -lopencv_flann
+Finished building target: panorama_01
+ 
+10:59:49 **** Incremental Build of configuration Debug for project panorama_01 ****
+make all 
+make: Nothing to be done for 'all'.
+11:12:19 **** Clean-only build of configuration Debug for project detect_racket_01 ****
+make clean 
+rm -rf  ./src/main.o  ./src/main.d  detect_racket_01
+ 
+11:12:19 **** Build of configuration Debug for project detect_racket_01 ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp: In function ‘bool findMaxContour(cv::Mat, std::vector<cv::Point_<int> >)’:
+../src/main.cpp:243:65: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘std::vector<cv::Point_<int> >::size_type {aka long unsigned int}’ [-Wformat=]
+   printf("found %d points in external contour\n", contour.size());
+                                                                 ^
+../src/main.cpp: In function ‘int main(int, char**)’:
+../src/main.cpp:373:9: warning: unused variable ‘radius’ [-Wunused-variable]
+   float radius;
+         ^
+../src/main.cpp: At global scope:
+../src/main.cpp:63:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color = Scalar(0, 255, 0)) {
+             ^
+../src/main.cpp:120:13: warning: ‘void fineImage(cv::Mat, cv::Mat&)’ defined but not used [-Wunused-function]
+ static void fineImage(const Mat img, Mat& outImg) {
+             ^
+../src/main.cpp:134:13: warning: ‘void detectColor(cv::Mat, cv::Mat&)’ defined but not used [-Wunused-function]
+ static void detectColor(const Mat img, Mat& outImg) {
+             ^
+../src/main.cpp:146:13: warning: ‘void findMassCenter(cv::Mat, cv::Mat&)’ defined but not used [-Wunused-function]
+ static void findMassCenter(const Mat src_gray, Mat& canny_output) {
+             ^
+../src/main.cpp:279:13: warning: ‘bool detectBiggestEllipse(cv::Mat, cv::RotatedRect&)’ defined but not used [-Wunused-function]
+ static bool detectBiggestEllipse(Mat const binaryImg, RotatedRect& rrect) {
+             ^
+../src/main.cpp:328:13: warning: ‘bool detectBiggestCircle(cv::Mat, cv::Point2f&, float&)’ defined but not used [-Wunused-function]
+ static bool detectBiggestCircle(Mat const binaryImg, Point2f& center,
+             ^
+../src/main.cpp:341:13: warning: ‘void drawRotatedRect(cv::Mat, cv::RotatedRect, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void drawRotatedRect(Mat img, RotatedRect rrect,
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: detect_racket_01
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "detect_racket_01"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: detect_racket_01
+ 
+11:12:29 **** Incremental Build of configuration Debug for project detect_racket_01 ****
+make all 
+make: Nothing to be done for 'all'.
+11:17:45 **** Build of configuration Debug for project color_detection_2 ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:67:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: color_detection_2
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "color_detection_2"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: color_detection_2
+ 
+11:18:09 **** Clean-only build of configuration Debug for project color_detection_2 ****
+make clean 
+rm -rf  ./src/main.o  ./src/main.d  color_detection_2
+ 
+11:18:09 **** Build of configuration Debug for project color_detection_2 ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:67:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: color_detection_2
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "color_detection_2"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: color_detection_2
+ 
+11:18:15 **** Incremental Build of configuration Debug for project color_detection_2 ****
+make all 
+make: Nothing to be done for 'all'.
+11:34:13 **** Clean-only build of configuration Debug for project detect_red_laser ****
+make clean 
+rm -rf  ./src/main.o  ./src/main.d  color_detection_2
+ 
+11:34:14 **** Build of configuration Debug for project detect_red_laser ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:67:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: detect_red_laser
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "detect_red_laser"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: detect_red_laser
+ 
+11:35:17 **** Incremental Build of configuration Debug for project detect_red_laser ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:67:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: detect_red_laser
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "detect_red_laser"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: detect_red_laser
+ 
+11:49:04 **** Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp: In function ‘void onMouse(int, int, int, int, void*)’:
+../src/main.cpp:225:63: error: request for member ‘at’ in ‘thresh’, which is of non-class type ‘int’
+     std::cout<<"x="<<pt.x<<"\t y="<<pt.y<<"\t value="<<thresh.at<uchar>(x,y)<<"\n";
+                                                               ^
+../src/main.cpp:225:71: error: expected primary-expression before ‘>’ token
+     std::cout<<"x="<<pt.x<<"\t y="<<pt.y<<"\t value="<<thresh.at<uchar>(x,y)<<"\n";
+                                                                       ^
+../src/main.cpp:225:75: warning: left operand of comma operator has no effect [-Wunused-value]
+     std::cout<<"x="<<pt.x<<"\t y="<<pt.y<<"\t value="<<thresh.at<uchar>(x,y)<<"\n";
+                                                                           ^
+../src/main.cpp:225:79: error: invalid operands of types ‘int’ and ‘const char [2]’ to binary ‘operator<<’
+     std::cout<<"x="<<pt.x<<"\t y="<<pt.y<<"\t value="<<thresh.at<uchar>(x,y)<<"\n";
+                                                                               ^
+../src/main.cpp: At global scope:
+../src/main.cpp:70:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+src/subdir.mk:18: recipe for target 'src/main.o' failed
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+make: *** [src/main.o] Error 1
+11:52:02 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:70:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+12:22:01 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:74:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+12:52:26 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+make: Nothing to be done for 'all'.
+12:52:33 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp: In function ‘void printHSV(cv::Mat)’:
+../src/main.cpp:162:49: warning: format ‘%d’ expects a matching ‘int’ argument [-Wformat=]
+  printf("H: %d, S:%d, V:%d in (%d, %d)", h, s, v);
+                                                 ^
+../src/main.cpp:162:49: warning: format ‘%d’ expects a matching ‘int’ argument [-Wformat=]
+../src/main.cpp: At global scope:
+../src/main.cpp:75:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+12:56:19 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp: In function ‘void printHSV(cv::Mat)’:
+../src/main.cpp:162:49: warning: format ‘%d’ expects a matching ‘int’ argument [-Wformat=]
+  printf("H: %d, S:%d, V:%d in (%d, %d)", h, s, v);
+                                                 ^
+../src/main.cpp:162:49: warning: format ‘%d’ expects a matching ‘int’ argument [-Wformat=]
+../src/main.cpp: At global scope:
+../src/main.cpp:75:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+12:57:31 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp: In function ‘void printHSV(cv::Mat)’:
+../src/main.cpp:162:49: warning: format ‘%d’ expects a matching ‘int’ argument [-Wformat=]
+  printf("H: %d, S:%d, V:%d in (%d, %d)", h, s, v);
+                                                 ^
+../src/main.cpp:162:49: warning: format ‘%d’ expects a matching ‘int’ argument [-Wformat=]
+../src/main.cpp: At global scope:
+../src/main.cpp:75:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+12:59:14 **** Incremental Build of configuration Debug for project print_hsv ****
+make all 
+Building file: ../src/main.cpp
+Invoking: Cross G++ Compiler
+g++ -I/home/peter/ocvinst/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.cpp"
+../src/main.cpp:75:13: warning: ‘void crossHair(cv::Mat&, cv::Scalar)’ defined but not used [-Wunused-function]
+ static void crossHair(Mat& img, Scalar color=Scalar(0, 255, 0)) {
+             ^
+Finished building: ../src/main.cpp
+ 
+Building target: print_hsv
+Invoking: Cross G++ Linker
+g++ -L/home/peter/ocvinst/lib -o "print_hsv"  ./src/main.o   -lopencv_core -lopencv_objdetect -lopencv_highgui -lopencv_imgproc -lopencv_video
+Finished building target: print_hsv
+ 
+21:37:45 **** Build of configuration Debug for project digits_01 ****
+make all 
+make: Nothing to be done for 'all'.
