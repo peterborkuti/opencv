@@ -16,9 +16,9 @@ Digit::Digit(cv::Rect r) {
 	numberValue = 0u;
 	isDigitized = false;
 
-	int h = r.height / 7;
-	int w = r.width / 3;
-	int h2 = 2*h;
+	float h = (float)r.height / 7.0;
+	float w = (float)r.width / 3.0;
+	float h2 = 2.0*h;
 
 	//horiz top
 	segments.push_back(Segment(cv::Rect(r.x+w, r.y+0*h, w, h )) );

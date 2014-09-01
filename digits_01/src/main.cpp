@@ -17,6 +17,10 @@
 #include <iostream>
 
 const int NUM_OF_DIGITS = 4;
+//The original picture was 640x480, so the digit's places was adopt to
+//this size
+const cv::Size* ORIG_SIZE = new cv::Size(640,480);
+const cv::Size* NEW_SIZE = new cv::Size(160, 120);
 
 cv::Mat readImage(int argc, const char** argv, int i) {
 	cv::Mat image;
@@ -31,6 +35,7 @@ cv::Mat readImage(int argc, const char** argv, int i) {
 			image = cv::Mat(640, 480, CV_8UC3, cv::Scalar(255, 255, 255));
 		}
 	}
+	cv::resize(image, image, *NEW_SIZE);
 
 	return image;
 }
@@ -72,33 +77,7 @@ void showImage(cv::Mat image, Digit * d[], Segment scan, Segment hold) {
 
 const char* keys = { "{1|  | 0 | camera number}" };
 
-int main(int argc, const char** argv) {
-
-	Segment scan(cv::Rect(63, 112, 107, 48), "SCAN", "    ");
-	Segment hold(cv::Rect(170, 108, 111, 51), "HOLD", "    ");
-	scan.setThreshold(0.01);
-	hold.setThreshold(0.01);
-
-	Digit* d[NUM_OF_DIGITS];
-
-	d[0] = new Digit(cv::Rect(40, 182, 112, 211));
-	d[1] = new Digit(cv::Rect(153, 182, 112, 211));
-	d[2] = new Digit(cv::Rect(272, 182, 103, 208));
-	d[3] = new Digit(cv::Rect(419, 179, 105, 210));
-
-	/* From pictures
-	 for (int im = 1; im < argc; im++) {
-	 cv::Mat image = readImage(argc, argv, im);
-
-	 readData(image, d, scan, hold);
-	 printData(d, scan, hold);
-	 showImage(image, d, scan, hold);
-
-	 cv::waitKey(0);
-	 }
-	 */
-	cv::VideoCapture cap;
-
+void openCamera(cv::VideoCapture& cap, int argc, const char** argv) {
 	cv::CommandLineParser parser(argc, argv, keys);
 	int camNum = parser.get<int>("1");
 
@@ -108,12 +87,71 @@ int main(int argc, const char** argv) {
 		//help();
 		std::cout << "***Could not initialize capturing...***\n";
 		std::cout << "Current parameter's value: \n";
-		return (-1);
+		exit (-1);
 	}
+
+	cap.set(CV_CAP_PROP_FRAME_WIDTH, 160);
+	cap.set(CV_CAP_PROP_FRAME_HEIGHT, 120);
+}
+
+class RectResizer {
+private:
+	float dx, dy;
+public:
+	RectResizer(cv::Size origSize, cv::Size newSize) {
+		dx = (float)newSize.width / (float)origSize.width;
+		dy = (float)newSize.height / (float)origSize.height;
+	}
+	cv::Rect resize(cv::Rect r) {
+		cv::Rect s;
+		s.x = ((float) r.x) * dx;
+		s.y = ((float)r.y) * dy;
+		s.height = ((float)r.height) * dy;
+		s.width = ((float)r.width) * dx;
+		return s;
+	}
+};
+
+
+int main(int argc, const char** argv) {
+
+	RectResizer resizer(*ORIG_SIZE, *NEW_SIZE);
+	Segment scan(resizer.resize(cv::Rect(63, 112, 107, 48)), "SCAN", "    ");
+	Segment hold(resizer.resize(cv::Rect(170, 108, 111, 51)), "HOLD", "    ");
+	scan.setThreshold(0.01);
+	hold.setThreshold(0.01);
+
+	Digit* d[NUM_OF_DIGITS];
+
+	d[0] = new Digit(resizer.resize(cv::Rect(45, 182, 112, 214)));
+	d[1] = new Digit(resizer.resize(cv::Rect(156, 182, 112, 214)));
+	d[2] = new Digit(resizer.resize(cv::Rect(272, 182, 103, 214)));
+	d[3] = new Digit(resizer.resize(cv::Rect(419, 179, 105, 214)));
+
+	cv::Mat image;
+
+	/*
+	 //From pictures
+	 for (int im = 1; im < argc; im++) {
+	 image = readImage(argc, argv, im);
+
+	 readData(image, d, scan, hold);
+	 printData(d, scan, hold);
+	 showImage(image, d, scan, hold);
+
+	 cv::waitKey(0);
+	 }
+	*/
+
+
+	cv::VideoCapture cap;
+
+	openCamera(cap, argc, argv);
+
 	bool paused = false;
 
 	cv::Mat frame;
-	cv::Mat image;
+
 	for (;;) {
 		if (!paused) {
 			cap >> frame;
